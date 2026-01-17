@@ -129,8 +129,8 @@ async function startScan() {
       { fps: 10, qrbox: 250 },
       async (decodedText) => {
         lastDecodedText = decodedText;
-        resultEl.textContent = decodedText;
-
+        //resultEl.textContent = decodedText;
+        resultEl.innerHTML = `${decodedText}<br><small>${lastEmbedInfo?.embedUrl ?? ""}</small>`;
         // Player-Info bestimmen
         lastEmbedInfo = buildEmbed(decodedText);
 
