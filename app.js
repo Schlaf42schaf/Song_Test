@@ -1,16 +1,112 @@
 const scanBtn = document.getElementById("scanBtn");
+const playBtn = document.getElementById("playBtn");
 const readerEl = document.getElementById("reader");
 const resultEl = document.getElementById("result");
+const playerEl = document.getElementById("player");
 
 let qr = null;
 let scanning = false;
 
-function isValidUrl(text) {
+// Merken, was gescannt wurde
+let lastDecodedText = "";
+let lastEmbedInfo = null; // { type: 'spotify'|'youtube', embedUrl: string }
+
+function tryParseSpotify(urlStr) {
   try {
-    new URL(text);
-    return true;
+    const u = new URL(urlStr);
+
+    // Beispiele:
+    // https://open.spotify.com/track/<id>
+    // https://open.spotify.com/playlist/<id>
+    // https://open.spotify.com/album/<id>
+    if (u.hostname !== "open.spotify.com") return null;
+
+    const parts = u.pathname.split("/").filter(Boolean);
+    if (parts.length < 2) return null;
+
+    const kind = parts[0]; // track/playlist/album/artist...
+    const id = parts[1];
+
+    // Spotify Embed:
+    // https://open.spotify.com/embed/<kind>/<id>
+    return {
+      type: "spotify",
+      embedUrl: `https://open.spotify.com/embed/${kind}/${id}`,
+    };
   } catch {
-    return false;
+    return null;
+  }
+}
+
+function tryParseYouTube(urlStr) {
+  try {
+    const u = new URL(urlStr);
+
+    let videoId = null;
+
+    // youtu.be/<id>
+    if (u.hostname === "youtu.be") {
+      videoId = u.pathname.split("/").filter(Boolean)[0] || null;
+    }
+
+    // youtube.com/watch?v=<id>
+    if (!videoId && (u.hostname === "www.youtube.com" || u.hostname === "youtube.com")) {
+      if (u.pathname === "/watch") {
+        videoId = u.searchParams.get("v");
+      } else if (u.pathname.startsWith("/shorts/")) {
+        videoId = u.pathname.split("/")[2] || null;
+      } else if (u.pathname.startsWith("/embed/")) {
+        videoId = u.pathname.split("/")[2] || null;
+      }
+    }
+
+    if (!videoId) return null;
+
+    // YouTube Embed (Autoplay wird oft nur nach User-Klick erlaubt)
+    return {
+      type: "youtube",
+      embedUrl: `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1`,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function buildEmbed(decodedText) {
+  // Priorität: Spotify → YouTube
+  const spotify = tryParseSpotify(decodedText);
+  if (spotify) return spotify;
+
+  const yt = tryParseYouTube(decodedText);
+  if (yt) return yt;
+
+  return null;
+}
+
+function renderPlayer(embedInfo) {
+  playerEl.innerHTML = "";
+
+  if (!embedInfo) return;
+
+  if (embedInfo.type === "spotify") {
+    // Spotify embed hat feste Höhe je nach Typ; 152 passt oft gut.
+    playerEl.innerHTML = `
+      <iframe
+        src="${embedInfo.embedUrl}"
+        height="152"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    `;
+  } else if (embedInfo.type === "youtube") {
+    playerEl.innerHTML = `
+      <iframe
+        src="${embedInfo.embedUrl}"
+        height="315"
+        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    `;
   }
 }
 
@@ -20,6 +116,7 @@ async function startScan() {
 
   readerEl.style.display = "block";
   scanBtn.textContent = "Stop";
+  playBtn.style.display = "none";
 
   if (!qr) qr = new Html5Qrcode("reader");
 
@@ -28,18 +125,22 @@ async function startScan() {
       { facingMode: "environment" },
       { fps: 10, qrbox: 250 },
       async (decodedText) => {
+        lastDecodedText = decodedText;
         resultEl.textContent = decodedText;
 
-        // Scan stoppen
+        // Player-Info bestimmen
+        lastEmbedInfo = buildEmbed(decodedText);
+
+        // Scan stoppen (damit Kamera aus ist)
         await stopScan();
 
-        // Wenn es eine URL ist → öffnen
-        //if (isValidUrl(decodedText)) {
-          // kleines Delay, damit Stop sauber durch ist
-          setTimeout(() => {
-            window.open(decodedText, "_blank");
-          }, 300);
-        //}
+        if (lastEmbedInfo) {
+          // Jetzt braucht es einen User-Klick zum Starten (Autoplay-Policies)
+          playBtn.style.display = "inline-block";
+        } else {
+          playBtn.style.display = "none";
+          playerEl.innerHTML = "";
+        }
       }
     );
   } catch (err) {
@@ -47,7 +148,7 @@ async function startScan() {
     scanBtn.textContent = "QR-Code scannen";
     readerEl.style.display = "none";
     resultEl.textContent =
-      "Kamera konnte nicht gestartet werden. Erlaube den Zugriff und nutze HTTPS.";
+      "Kamera konnte nicht gestartet werden. Erlaube Zugriff und nutze HTTPS (GitHub Pages passt).";
     console.error(err);
   }
 }
@@ -68,4 +169,14 @@ async function stopScan() {
 scanBtn.addEventListener("click", () => {
   if (scanning) stopScan();
   else startScan();
+});
+
+playBtn.addEventListener("click", () => {
+  if (!lastEmbedInfo) return;
+
+  // Einbettung “startet” jetzt durch User-Geste
+  renderPlayer(lastEmbedInfo);
+
+  // Button ausblenden (optional)
+  playBtn.style.display = "none";
 });
