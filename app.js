@@ -25,8 +25,8 @@ function tryParseSpotify(urlStr) {
     const parts = u.pathname.split("/").filter(Boolean);
     if (parts.length < 2) return null;
 
-    const kind = parts[0]; // track/playlist/album/artist...
-    const id = parts[1];
+    const kind = parts[parts.length - 2];
+    const id = parts[parts.length - 1];
 
     // Spotify Embed:
     // https://open.spotify.com/embed/<kind>/<id>
