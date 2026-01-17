@@ -34,12 +34,12 @@ async function startScan() {
         await stopScan();
 
         // Wenn es eine URL ist → öffnen
-        if (isValidUrl(decodedText)) {
+        //if (isValidUrl(decodedText)) {
           // kleines Delay, damit Stop sauber durch ist
           setTimeout(() => {
             window.open(decodedText, "_blank");
           }, 300);
-        }
+        //}
       }
     );
   } catch (err) {
