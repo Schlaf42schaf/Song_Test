@@ -30,7 +30,7 @@ function tryParseSpotify(urlStr) {
 
     // Spotify Embed:
     // https://open.spotify.com/embed/<kind>/<id>
-    alert(`https://open.spotify.com/embed/${kind}/${id}`);
+    // alert(`https://open.spotify.com/embed/${kind}/${id}`);
     return {
       type: "spotify",
       embedUrl: `https://open.spotify.com/embed/${kind}/${id}`,
@@ -77,6 +77,7 @@ function tryParseYouTube(urlStr) {
 function buildEmbed(decodedText) {
   // Priorität: Spotify → YouTube
   const spotify = tryParseSpotify(decodedText);
+  alert(spotify);
   if (spotify) return spotify;
 
   const yt = tryParseYouTube(decodedText);
