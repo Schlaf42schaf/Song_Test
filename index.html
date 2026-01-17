@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QR Scan Demo</title>
+    <style>
+      body { font-family: system-ui, Arial, sans-serif; padding: 16px; }
+      #reader { width: 320px; max-width: 100%; margin-top: 12px; display: none; }
+      button { padding: 10px 14px; font-size: 16px; }
+      .hint { opacity: 0.8; font-size: 14px; }
+      .box { margin-top: 12px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+    </style>
+  </head>
+  <body>
+    <h1>Mein QR-Scanner</h1>
+
+    <button id="scanBtn">QR-Code scannen</button>
+    <p class="hint">Tipp: Auf dem Handy öffnen (Kamera!).</p>
+
+    <div id="reader"></div>
+
+    <div class="box">
+      <strong>Ergebnis:</strong>
+      <div id="result">Noch nichts gescannt.</div>
+    </div>
+
+    <!-- QR Library (CDN) -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
