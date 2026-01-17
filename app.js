@@ -77,7 +77,7 @@ function tryParseYouTube(urlStr) {
 function buildEmbed(decodedText) {
   // Priorität: Spotify → YouTube
   const spotify = tryParseSpotify(decodedText);
-  alert(spotify);
+  // alert(spotify);
   if (spotify) return spotify;
 
   const yt = tryParseYouTube(decodedText);
