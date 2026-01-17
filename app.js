@@ -19,7 +19,7 @@ function tryParseSpotify(urlStr) {
     // https://open.spotify.com/track/<id>
     // https://open.spotify.com/playlist/<id>
     // https://open.spotify.com/album/<id>
-    alert(u.hostname);
+    // alert(u.hostname);
     if (u.hostname !== "open.spotify.com") return null;
 
     const parts = u.pathname.split("/").filter(Boolean);
@@ -30,6 +30,7 @@ function tryParseSpotify(urlStr) {
 
     // Spotify Embed:
     // https://open.spotify.com/embed/<kind>/<id>
+    alert(`https://open.spotify.com/embed/${kind}/${id}`);
     return {
       type: "spotify",
       embedUrl: `https://open.spotify.com/embed/${kind}/${id}`,
@@ -179,5 +180,5 @@ playBtn.addEventListener("click", () => {
   renderPlayer(lastEmbedInfo);
 
   // Button ausblenden (optional)
-  playBtn.style.display = "none";
+  // playBtn.style.display = "none";
 });
