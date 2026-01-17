@@ -7,16 +7,20 @@
     <style>
       body { font-family: system-ui, Arial, sans-serif; padding: 16px; }
       #reader { width: 320px; max-width: 100%; margin-top: 12px; display: none; }
-      button { padding: 10px 14px; font-size: 16px; }
+      button { padding: 10px 14px; font-size: 16px; margin-right: 8px; }
       .hint { opacity: 0.8; font-size: 14px; }
       .box { margin-top: 12px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+      #playBtn { display: none; }
+      #player { margin-top: 12px; }
+      iframe { width: 100%; max-width: 520px; border: 0; border-radius: 12px; }
     </style>
   </head>
   <body>
     <h1>Mein QR-Scanner</h1>
 
     <button id="scanBtn">QR-Code scannen</button>
-    <p class="hint">Tipp: Auf dem Handy öffnen (Kamera!).</p>
+    <button id="playBtn">Abspielen</button>
+    <p class="hint">Tipp: Auf dem Handy öffnen und Kamera erlauben.</p>
 
     <div id="reader"></div>
 
@@ -25,7 +29,8 @@
       <div id="result">Noch nichts gescannt.</div>
     </div>
 
-    <!-- QR Library (CDN) -->
+    <div id="player"></div>
+
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="app.js"></script>
   </body>
