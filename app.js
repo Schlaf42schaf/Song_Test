@@ -19,6 +19,7 @@ function tryParseSpotify(urlStr) {
     // https://open.spotify.com/track/<id>
     // https://open.spotify.com/playlist/<id>
     // https://open.spotify.com/album/<id>
+    alert(u.hostname);
     if (u.hostname !== "open.spotify.com") return null;
 
     const parts = u.pathname.split("/").filter(Boolean);
