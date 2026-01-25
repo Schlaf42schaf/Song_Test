@@ -146,7 +146,7 @@ async function startScan() {
       
         if (lastEmbedInfo) {
           playBtn.style.display = "inline-block";
-          pauseBtn.style.display = "inline-block";
+          pauseBtn.style.display = "none";
         } else {
           playBtn.style.display = "none";
           pauseBtn.style.display = "none";
