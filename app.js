@@ -104,16 +104,26 @@ function renderPlayer(embedInfo) {
     `;
   } else if (embedInfo.type === "youtube") {
     // ✅ GEÄNDERT: iframe in Wrapper + Overlay, damit Video/Titel nicht sichtbar sind
+    //playerEl.innerHTML = `
+      //<div class="yt-wrap">
+        //<iframe
+          //src="${embedInfo.embedUrl}"
+          //allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          //allowfullscreen
+        //></iframe>
+        //<div class="yt-cover"></div>
+      //</div>
+    //`;
     playerEl.innerHTML = `
-      <div class="yt-wrap">
-        <iframe
-          src="${embedInfo.embedUrl}"
-          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-          allowfullscreen
-        ></iframe>
-        <div class="yt-cover"></div>
-      </div>
-    `;
+    <div class="yt-audio">
+      <iframe
+        src="${embedInfo.embedUrl}"
+        allow="autoplay; encrypted-media"
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+      <div class="yt-cover">Audio läuft … 🎵</div>
+    </div>
+  `;
   }
 }
 
