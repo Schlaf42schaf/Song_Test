@@ -67,7 +67,7 @@ function tryParseYouTube(urlStr) {
     // YouTube Embed (Autoplay wird oft nur nach User-Klick erlaubt)
     return {
       type: "youtube",
-      embedUrl: `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1`,
+      embedUrl: `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3`,
     };
   } catch {
     return null;
@@ -102,13 +102,16 @@ function renderPlayer(embedInfo) {
       ></iframe>
     `;
   } else if (embedInfo.type === "youtube") {
+    // ✅ GEÄNDERT: iframe in Wrapper + Overlay, damit Video/Titel nicht sichtbar sind
     playerEl.innerHTML = `
-      <iframe
-        src="${embedInfo.embedUrl}"
-        height="315"
-        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-        allowfullscreen
-      ></iframe>
+      <div class="yt-wrap">
+        <iframe
+          src="${embedInfo.embedUrl}"
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+        <div class="yt-cover"></div>
+      </div>
     `;
   }
 }
@@ -129,16 +132,16 @@ async function startScan() {
       { fps: 10, qrbox: 250 },
       async (decodedText) => {
         lastDecodedText = decodedText;
-        //resultEl.textContent = decodedText;
-        resultEl.innerHTML = `${decodedText}<br><small>${lastEmbedInfo?.embedUrl ?? ""}</small>`;
-        // Player-Info bestimmen
+      
+        // ✅ GEÄNDERT: erst embedInfo bestimmen ...
         lastEmbedInfo = buildEmbed(decodedText);
-
-        // Scan stoppen (damit Kamera aus ist)
+      
+        // ✅ GEÄNDERT: ... dann Ergebnis anzeigen (debug optional)
+        resultEl.innerHTML = `${decodedText}<br><small>${lastEmbedInfo?.embedUrl ?? ""}</small>`;
+      
         await stopScan();
-
+      
         if (lastEmbedInfo) {
-          // Jetzt braucht es einen User-Klick zum Starten (Autoplay-Policies)
           playBtn.style.display = "inline-block";
         } else {
           playBtn.style.display = "none";
