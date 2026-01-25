@@ -170,46 +170,40 @@
               }
 
         /* ✅ NEU: YouTube-Audio abspielen, aber Video komplett verstecken */
-        .yt-wrap{
-          position: relative;
-          width: 100%;
-          max-width: 560px;
-          height: 90px;              /* ✅ NEU: klein halten, wirkt wie „Audio-only“ */
-          border-radius: 16px;
-          overflow: hidden;
-          border: 1px solid var(--border);
-          box-shadow: 0 12px 34px rgba(0,0,0,0.28);
-        }
-        
-        /* iframe absichtlich größer, damit auch „Overlays“ von YT sicher verdeckt sind */
-        .yt-wrap iframe{
-          position: absolute;
-          top: -80px;               /* ✅ NEU: Video nach oben schieben */
-          left: 0;
-          width: 100%;
-          height: 315px;
-          border: 0;
-        }
-        
-        /* Deckschicht */
-        .yt-cover{
-          position: absolute;
-          inset: 0;
-          background: rgba(11, 31, 22, 0.92);
-        }
-        
-        /* Optional: dezenter Hinweis */
-        .yt-cover::after{
-          content: "Audio läuft … 🎵";
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          color: var(--gold-soft, #e6c97a);
-          font-family: var(--font-serif, Georgia, serif);
-          font-size: 18px;
-          opacity: 0.95;
-        }
+        .yt-audio{
+            position: relative;
+            width: 100%;
+            max-width: 560px;
+            height: 90px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 12px 34px rgba(0,0,0,0.28);
+            background: rgba(11, 31, 22, 0.92);
+          }
+          
+          /* iframe bleibt im DOM (Audio läuft), ist aber niemals sichtbar */
+          .yt-audio iframe{
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            opacity: 0;              /* ✅ nie sichtbar */
+            pointer-events: none;    /* ✅ verhindert Klicks/Overlays */
+          }
+          
+          /* Overlay ist immer sichtbar */
+          .yt-audio .yt-cover{
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            z-index: 2;              /* ✅ garantiert oben */
+            color: var(--gold-soft, #e6c97a);
+            font-family: var(--font-serif, Georgia, serif);
+            font-size: 18px;
+          }
 
     </style>
   </head>
