@@ -195,13 +195,13 @@ scanBtn.addEventListener("click", () => {
 
 playBtn.addEventListener("click", () => {
  if (!lastEmbedInfo) return;
-
+  resultEl.textContent = "Song wird abgespielt 🎵";
   renderPlayer(lastEmbedInfo);
 
   // ✅ Buttons umschalten
   playBtn.style.display = "none";
   pauseBtn.style.display = "inline-block";
-  resultEl.textContent = "⏸️ Song wird abgespielt.";
+  
 });
 
 pauseBtn.addEventListener("click", () => {
@@ -212,6 +212,6 @@ pauseBtn.addEventListener("click", () => {
   playerEl.style.display = "none"; 
   playBtn.style.display = "inline-block";
 
-  resultEl.textContent = "⏸️ Song pausiert.";
+  resultEl.textContent = "⏸️ Song pausiert";
 
 });
