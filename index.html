@@ -5,11 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Song Ratespiel Hochzeit Bianca und Dominik</title>
     <style>
-      body { font-family: system-ui, Georgia, sans-serif; padding: 16px; }
+      body {
+            font-family: system-ui, Georgia, sans-serif;
+            padding: 16px;
+            margin: 0;
+          
+            /* Hintergrundbild + dunkles Overlay */
+            background:
+              linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+              url("bg.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+          
+            color: white; /* Text hell, damit er lesbar ist */
+          }
       #reader { width: 320px; max-width: 100%; margin-top: 12px; display: none; }
-      button { padding: 10px 14px; font-size: 16px; margin-right: 8px; }
+      button {
+              padding: 10px 18px;
+              font-size: 16px;
+              border-radius: 999px;
+              border: none;
+              cursor: pointer;
+              background: linear-gradient(135deg, #ff4d6d, #ff9f1c);
+              color: white;
+              font-weight: 600;
+              margin-right: 8px;
+              transition: transform 0.1s ease, opacity 0.2s ease;
+            }
+            
+            button:hover {
+              opacity: 0.9;
+              transform: scale(1.03);
+            }
       .hint { opacity: 0.8; font-size: 14px; }
-      .box { margin-top: 12px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+      .box {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+          }
       #playBtn { display: none; }
       #player { margin-top: 12px; }
       iframe { width: 100%; max-width: 520px; border: 0; border-radius: 12px; }
