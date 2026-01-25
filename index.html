@@ -74,6 +74,8 @@
               color: var(--muted);
               font-size: 14px;
               margin: 10px 0 0 0;
+              /* ✅ NEU: UI-Schrift explizit (falls Browser etwas „erbt“) */
+              font-family: var(--font-ui);
             }
 
             /* Scanner-Feld */
@@ -150,10 +152,14 @@
               }
               
               /* Optional: kleine „Unterzeile“ wie Burg-Feeling */
+              /* Optional: kleine „Unterzeile“ wie Burg-Feeling */
               .subtle {
                 margin-top: 6px;
                 color: var(--muted);
                 font-size: 13px;
+
+                /* ✅ NEU: Unterzeile auch in Serif, wirkt „edel“ */
+                font-family: var(--font-serif);
               }
 
     </style>
