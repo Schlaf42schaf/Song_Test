@@ -147,6 +147,7 @@ async function startScan() {
         } else {
           playBtn.style.display = "none";
           playerEl.innerHTML = "";
+          resultEl.textContent = "Kein gültiger Spotify- oder YouTube-Link erkannt.";
         }
       }
     );
