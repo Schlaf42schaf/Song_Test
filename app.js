@@ -1,5 +1,6 @@
 const scanBtn = document.getElementById("scanBtn");
 const playBtn = document.getElementById("playBtn");
+const pauseBtn = document.getElementById("pauseBtn");
 const readerEl = document.getElementById("reader");
 const resultEl = document.getElementById("result");
 const playerEl = document.getElementById("player");
@@ -123,6 +124,7 @@ async function startScan() {
   readerEl.style.display = "block";
   scanBtn.textContent = "Stop";
   playBtn.style.display = "none";
+  pauseBtn.style.display = "none";
 
   if (!qr) qr = new Html5Qrcode("reader");
 
@@ -144,8 +146,10 @@ async function startScan() {
       
         if (lastEmbedInfo) {
           playBtn.style.display = "inline-block";
+          pauseBtn.style.display = "inline-block";
         } else {
           playBtn.style.display = "none";
+          pauseBtn.style.display = "none";
           playerEl.innerHTML = "";
           resultEl.textContent = "Kein gültiger Spotify- oder YouTube-Link erkannt.";
         }
@@ -180,11 +184,22 @@ scanBtn.addEventListener("click", () => {
 });
 
 playBtn.addEventListener("click", () => {
-  if (!lastEmbedInfo) return;
+ if (!lastEmbedInfo) return;
 
-  // Einbettung “startet” jetzt durch User-Geste
   renderPlayer(lastEmbedInfo);
 
-  // Button ausblenden (optional)
-  // playBtn.style.display = "none";
+  // ✅ Buttons umschalten
+  playBtn.style.display = "none";
+  pauseBtn.style.display = "inline-block";
+});
+
+pauseBtn.addEventListener("click", () => {
+  // ✅ Player entfernen = Audio stoppt
+  playerEl.innerHTML = "";
+
+  pauseBtn.style.display = "none";
+  playBtn.style.display = "inline-block";
+
+  resultEl.textContent = "⏸️ Song pausiert.";
+
 });
