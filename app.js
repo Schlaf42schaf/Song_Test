@@ -121,7 +121,7 @@ function renderPlayer(embedInfo) {
         allow="autoplay; encrypted-media"
         referrerpolicy="strict-origin-when-cross-origin"
       ></iframe>
-      <div class="yt-cover">Audio läuft … 🎵</div>
+      
     </div>
   `;
   }
