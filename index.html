@@ -40,7 +40,7 @@
                 margin: 0;
                 min-height: 100vh;
                 padding: 18px;
-                font-family: system-ui, Georgia, sans-serif;
+                font-family: var(--font-ui);
                 color: rgba(255,255,255,0.92);
               
                 /* wichtig: Body transparent lassen, damit html-Hintergrund „durchscheint“ */
@@ -62,6 +62,10 @@
               font-weight: 750;
               letter-spacing: 0.2px;
               line-height: 1.1;
+              /* ✅ NEU: Burg-/Hochzeits-Serifenschrift nur für Überschrift */
+              font-family: var(--font-serif);
+              font-weight: 800;
+              
             }
 
             /* Kleine Hilfetexte */
