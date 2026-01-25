@@ -201,6 +201,7 @@ playBtn.addEventListener("click", () => {
   // ✅ Buttons umschalten
   playBtn.style.display = "none";
   pauseBtn.style.display = "inline-block";
+  resultEl.textContent = "⏸️ Song wird abgespielt.";
 });
 
 pauseBtn.addEventListener("click", () => {
