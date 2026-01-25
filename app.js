@@ -198,6 +198,7 @@ pauseBtn.addEventListener("click", () => {
   playerEl.innerHTML = "";
 
   pauseBtn.style.display = "none";
+  playerEl.style.display = "none"; 
   playBtn.style.display = "inline-block";
 
   resultEl.textContent = "⏸️ Song pausiert.";
