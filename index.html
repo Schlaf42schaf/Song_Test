@@ -5,143 +5,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Song Ratespiel Hochzeit Bianca und Dominik</title>
     <style>
-      :root{
-  --green-900: #0b1f16;   /* sehr dunkles Waldgrün */
-  --green-700: #163827;   /* moosig */
-  --green-500: #2f6b4f;   /* Akzentgrün */
-  --sand-200:  #e7ddc8;   /* warmer Naturton */
-  --text:      rgba(255,255,255,0.92);
-  --muted:     rgba(255,255,255,0.75);
-  --glass:     rgba(255,255,255,0.10);
-  --border:    rgba(255,255,255,0.18);
-}
+            :root{
+                --green-900: #0b1f16;   /* sehr dunkles Waldgrün */
+                --green-700: #163827;   /* moosig */
+                --green-500: #2f6b4f;   /* Akzentgrün */
+                --sand-200:  #e7ddc8;   /* warmer Naturton */
+                --text:      rgba(255,255,255,0.92);
+                --muted:     rgba(255,255,255,0.75);
+                --glass:     rgba(255,255,255,0.10);
+                --border:    rgba(255,255,255,0.18);
+                }
 
-* { box-sizing: border-box; }
+          * { box-sizing: border-box; }
 
-body {
-  margin: 0;
-  padding: 18px;
-  font-family: system-ui, Georgia, sans-serif;
-  color: var(--text);
+            body {
+              margin: 0;
+              padding: 18px;
+              font-family: system-ui, Georgia, sans-serif;
+              color: var(--text);
+            
+              /* Hintergrund: Burg/Natur + dunkles grünes Overlay */
+              background:
+                linear-gradient(
+                  rgba(11, 31, 22, 0.70),
+                  rgba(11, 31, 22, 0.70)
+                ),
+                url("bg.jpg");
+              background-size: cover;
+              background-position: center;
+              background-repeat: no-repeat;
+              /* iOS mag fixed oft nicht -> lieber scroll; wenn du willst: fixed ausprobieren */
+              background-attachment: scroll;
+            
+              display: flex;
+              justify-content: center;
+            }
 
-  /* Hintergrund: Burg/Natur + dunkles grünes Overlay */
-  background:
-    linear-gradient(
-      rgba(11, 31, 22, 0.70),
-      rgba(11, 31, 22, 0.70)
-    ),
-    url("bg.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  /* iOS mag fixed oft nicht -> lieber scroll; wenn du willst: fixed ausprobieren */
-  background-attachment: scroll;
+            /* App-Container (den hast du ja eingefügt) */
+            .app {
+              width: 100%;
+              max-width: 640px;
+            }
+            
+            /* Headline */
+            h1 {
+              margin: 6px 0 14px 0;
+              font-weight: 750;
+              letter-spacing: 0.2px;
+              line-height: 1.1;
+            }
 
-  display: flex;
-  justify-content: center;
-}
+            /* Kleine Hilfetexte */
+            .hint {
+              opacity: 0.9;
+              color: var(--muted);
+              font-size: 14px;
+              margin: 10px 0 0 0;
+            }
 
-/* App-Container (den hast du ja eingefügt) */
-.app {
-  width: 100%;
-  max-width: 640px;
-}
+            /* Scanner-Feld */
+            #reader {
+              width: 340px;
+              max-width: 100%;
+              margin-top: 14px;
+              display: none;
+            
+              border-radius: 16px;
+              overflow: hidden;
+              border: 1px solid var(--border);
+              background: rgba(0,0,0,0.20);
+            }
 
-/* Headline */
-h1 {
-  margin: 6px 0 14px 0;
-  font-weight: 750;
-  letter-spacing: 0.2px;
-  line-height: 1.1;
-}
+            /* Karten/Boxen */
+            .box {
+              margin-top: 14px;
+              padding: 14px;
+              border-radius: 16px;
+              background: var(--glass);
+              border: 1px solid var(--border);
+              backdrop-filter: blur(10px);
+              box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            }
 
-/* Kleine Hilfetexte */
-.hint {
-  opacity: 0.9;
-  color: var(--muted);
-  font-size: 14px;
-  margin: 10px 0 0 0;
-}
+            /* Ergebnis-Text */
+            #result {
+              margin-top: 8px;
+              word-break: break-word;
+              color: var(--sand-200);
+            }
 
-/* Scanner-Feld */
-#reader {
-  width: 340px;
-  max-width: 100%;
-  margin-top: 14px;
-  display: none;
-
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  background: rgba(0,0,0,0.20);
-}
-
-/* Karten/Boxen */
-.box {
-  margin-top: 14px;
-  padding: 14px;
-  border-radius: 16px;
-  background: var(--glass);
-  border: 1px solid var(--border);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-}
-
-/* Ergebnis-Text */
-#result {
-  margin-top: 8px;
-  word-break: break-word;
-  color: var(--sand-200);
-}
-
-/* Buttons */
-button {
-  appearance: none;
-  border: 1px solid rgba(255,255,255,0.16);
-  border-radius: 999px;
-  padding: 11px 18px;
-  font-size: 16px;
-  font-weight: 650;
-  cursor: pointer;
-  margin-right: 10px;
-
-  color: var(--text);
-  background:
-    linear-gradient(135deg, rgba(47,107,79,0.95), rgba(22,56,39,0.95));
-  box-shadow: 0 10px 26px rgba(0,0,0,0.25);
-  transition: transform 0.12s ease, opacity 0.15s ease, filter 0.15s ease;
-}
-
-button:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.05);
-}
-
-button:active {
-  transform: translateY(0px) scale(0.99);
-}
-
-#playBtn { display: none; }
-
-/* Player */
-#player { margin-top: 14px; }
-
-iframe {
-  width: 100%;
-  max-width: 560px;
-  border: 0;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  box-shadow: 0 12px 34px rgba(0,0,0,0.28);
-}
-
-/* Optional: kleine „Unterzeile“ wie Burg-Feeling */
-.subtle {
-  margin-top: 6px;
-  color: var(--muted);
-  font-size: 13px;
-}
+              /* Buttons */
+              button {
+                appearance: none;
+                border: 1px solid rgba(255,255,255,0.16);
+                border-radius: 999px;
+                padding: 11px 18px;
+                font-size: 16px;
+                font-weight: 650;
+                cursor: pointer;
+                margin-right: 10px;
+              
+                color: var(--text);
+                background:
+                  linear-gradient(135deg, rgba(47,107,79,0.95), rgba(22,56,39,0.95));
+                box-shadow: 0 10px 26px rgba(0,0,0,0.25);
+                transition: transform 0.12s ease, opacity 0.15s ease, filter 0.15s ease;
+              }
+              
+              button:hover {
+                transform: translateY(-1px);
+                filter: brightness(1.05);
+              }
+              
+              button:active {
+                transform: translateY(0px) scale(0.99);
+              }
+              
+              #playBtn { display: none; }
+              
+              /* Player */
+              #player { margin-top: 14px; }
+              
+              iframe {
+                width: 100%;
+                max-width: 560px;
+                border: 0;
+                border-radius: 16px;
+                overflow: hidden;
+                border: 1px solid var(--border);
+                box-shadow: 0 12px 34px rgba(0,0,0,0.28);
+              }
+              
+              /* Optional: kleine „Unterzeile“ wie Burg-Feeling */
+              .subtle {
+                margin-top: 6px;
+                color: var(--muted);
+                font-size: 13px;
+              }
 
     </style>
   </head>
