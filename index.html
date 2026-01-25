@@ -18,6 +18,8 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
+            display: flex;
+            justify-content: center;
           
             color: white; /* Text hell, damit er lesbar ist */
           }
@@ -48,27 +50,32 @@
             backdrop-filter: blur(6px);
             border: 1px solid rgba(255, 255, 255, 0.2);
           }
+      .app {
+            max-width: 600px;
+            width: 100%;
+          }
       #playBtn { display: none; }
       #player { margin-top: 12px; }
       iframe { width: 100%; max-width: 520px; border: 0; border-radius: 12px; }
     </style>
   </head>
   <body>
-    <h1>Willkommen zu eurem Song Ratespiel</h1>
-
-    <button id="scanBtn">QR-Code scannen</button>
-    <button id="playBtn">Abspielen</button>
-    <p class="hint">Hinweis: Auf dem Handy öffnen und Kamera erlauben.</p>
-
-    <div id="reader"></div>
-
-    <div class="box">
-      <strong>Ergebnis:</strong>
-      <div id="result">Noch nichts gescannt.</div>
-    </div>
-
-    <div id="player"></div>
-
+    <div class="app">
+      <h1>Willkommen zu eurem Song Ratespiel</h1>
+  
+      <button id="scanBtn">QR-Code scannen</button>
+      <button id="playBtn">Abspielen</button>
+      <p class="hint">Hinweis: Auf dem Handy öffnen und Kamera erlauben.</p>
+  
+      <div id="reader"></div>
+  
+      <div class="box">
+        <strong>Ergebnis:</strong>
+        <div id="result">Noch nichts gescannt.</div>
+      </div>
+  
+      <div id="player"></div>
+     </div>
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="app.js"></script>
   </body>
