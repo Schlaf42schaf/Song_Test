@@ -144,7 +144,8 @@ async function startScan() {
       { fps: 10, qrbox: 250 },
       async (decodedText) => {
         lastDecodedText = decodedText;
-      
+        console.log("decodedText:", decodedText);
+        console.log("decodedResult:", decodedResult);
         // ✅ GEÄNDERT: erst embedInfo bestimmen ...
         lastEmbedInfo = buildEmbed(decodedText);
       
