@@ -52,7 +52,6 @@ function tryParseYouTube(urlStr) {
       videoId = u.pathname.split("/").filter(Boolean)[0] || null;
     }
     
-    document.write(videoId);
     // youtube.com/watch?v=<id>
     if (!videoId && (u.hostname === "www.youtube.com" || u.hostname === "youtube.com")) {
       if (u.pathname === "/watch") {
@@ -152,7 +151,7 @@ async function startScan() {
         // ✅ GEÄNDERT: ... dann Ergebnis anzeigen (debug optional)
         // resultEl.innerHTML = `${decodedText}<br><small>${lastEmbedInfo?.embedUrl ?? ""}</small>`;
         resultEl.textContent = "Song erkannt 🎵";
-        
+        resultEl.textContent = `Gescannt: ${decodedText}`;
         await stopScan();
       
         if (lastEmbedInfo) {
