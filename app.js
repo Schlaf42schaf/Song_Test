@@ -65,10 +65,25 @@ function tryParseYouTube(urlStr) {
 
     if (!videoId) return null;
 
+    // Startzeit auslesen (?t=, &t=, ?start=, etc.)
+    let startSeconds = 0;
+    
+    // Format: ?t=19 oder ?t=19s
+    const tParam = u.searchParams.get("t");
+    if (tParam) {
+      // Entfernt das "s" bei "19s"
+      startSeconds = parseInt(tParam.replace("s", ""), 10) || 0;
+    }
+    
+    // Alternative: ?start=19
+    const startParam = u.searchParams.get("start");
+    if (startParam) {
+      startSeconds = parseInt(startParam, 10) || startSeconds;
+    }
     // YouTube Embed (Autoplay wird oft nur nach User-Klick erlaubt)
     return {
-      type: "youtube",
-      embedUrl: `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3`,
+    type: "youtube",
+    embedUrl: `https://www.youtube.com/embed/${videoId}?start=${startSeconds}&autoplay=1&playsinline=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3`,
     };
   } catch {
     return null;
@@ -144,15 +159,14 @@ async function startScan() {
       { fps: 10, qrbox: 250 },
       async (decodedText) => {
         lastDecodedText = decodedText;
-        console.log("decodedText:", decodedText);
-        console.log("decodedResult:", decodedResult);
+
         // ✅ GEÄNDERT: erst embedInfo bestimmen ...
         lastEmbedInfo = buildEmbed(decodedText);
       
         // ✅ GEÄNDERT: ... dann Ergebnis anzeigen (debug optional)
         resultEl.innerHTML = `${decodedText}<br><small>${lastEmbedInfo?.embedUrl ?? ""}</small>`;
         resultEl.textContent = "Song erkannt 🎵";
-        // resultEl.textContent = `Gescannt: ${decodedText}`;
+        
         await stopScan();
       
         if (lastEmbedInfo) {
