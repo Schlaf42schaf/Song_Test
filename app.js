@@ -51,7 +51,8 @@ function tryParseYouTube(urlStr) {
     if (u.hostname === "youtu.be") {
       videoId = u.pathname.split("/").filter(Boolean)[0] || null;
     }
-
+    
+    document.write(videoId);
     // youtube.com/watch?v=<id>
     if (!videoId && (u.hostname === "www.youtube.com" || u.hostname === "youtube.com")) {
       if (u.pathname === "/watch") {
