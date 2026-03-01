@@ -150,7 +150,7 @@ async function startScan() {
         lastEmbedInfo = buildEmbed(decodedText);
       
         // ✅ GEÄNDERT: ... dann Ergebnis anzeigen (debug optional)
-        // resultEl.innerHTML = `${decodedText}<br><small>${lastEmbedInfo?.embedUrl ?? ""}</small>`;
+        resultEl.innerHTML = `${decodedText}<br><small>${lastEmbedInfo?.embedUrl ?? ""}</small>`;
         resultEl.textContent = "Song erkannt 🎵";
         // resultEl.textContent = `Gescannt: ${decodedText}`;
         await stopScan();
